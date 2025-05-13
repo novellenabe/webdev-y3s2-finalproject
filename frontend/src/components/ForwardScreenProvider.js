@@ -6,6 +6,7 @@ import React, {
   useEffect,
   createContext,
   useContext,
+  useInsertionEffect,
 } from "react";
 
 const ForwardScreenContext = createContext();
@@ -15,6 +16,10 @@ export const ForwardScreenProvider = ({ children }) => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [profileDropdown, setProfileDropdown] = useState(false);
   const popupRef = useRef(null);
+
+  const resetVisible = () => {
+    setProfileDropdown(false);
+  };
 
   const showPopup = () => {
     setIsPopupVisible(true);
@@ -33,6 +38,18 @@ export const ForwardScreenProvider = ({ children }) => {
     setCurrent("Select");
   };
 
+  /* THIS FUNCTION WILL RESET ALL CURRENT VISIBLE DROPDOWNS etc */
+  function checkBreakpoint() {
+    if (window.innerWidth <= 768) {
+      //resetVisible();
+      //hidePopup();
+      setProfileDropdown(false);
+    } else {
+      setIsPopupVisible(false);
+    }
+  }
+
+  // FIXME: Issue is here about autoclosing when resizing
   useEffect(() => {
     if (isPopupVisible || profileDropdown) {
       if (isPopupVisible) {
@@ -69,13 +86,13 @@ export const ForwardScreenProvider = ({ children }) => {
 
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("keydown", handleEscapeButtonOutside);
-
+    window.addEventListener("resize", checkBreakpoint);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleEscapeButtonOutside);
       document.body.classList.remove("overflow-hidden"); // Cleanup
     };
-  }, [isPopupVisible, profileDropdown, hidePopup]);
+  }, [isPopupVisible, profileDropdown, hidePopup]); // FIXME: Issue is here
 
   return (
     <ForwardScreenContext.Provider
