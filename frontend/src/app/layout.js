@@ -14,7 +14,8 @@ import {
 } from "../components/ForwardScreenProvider";
 import { UserAuthProvider } from "@/components/UserAuthProvider";
 import "./globals.css";
-
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import AuthPopUp from "@/components/AuthPopUp";
 
 export default function RootLayout({ children }) {
@@ -23,7 +24,9 @@ export default function RootLayout({ children }) {
       <body>
         <UserAuthProvider>
           <ForwardScreenProvider>
+            <Header />
             {children}
+            <Footer />
             <AuthPopUp />
           </ForwardScreenProvider>
         </UserAuthProvider>

@@ -3,8 +3,7 @@ import { usePopup } from "../ForwardScreenProvider";
 import { useUserAuth } from "../UserAuthProvider";
 
 export default function LoggedInUserOptionsDropdown() {
-  const { isPopupVisible, hidePopup, setCurrent, popupRef, profileDropdown } =
-    usePopup();
+  const { popupRef } = usePopup();
   const { logout } = useUserAuth();
 
   return (
@@ -17,6 +16,9 @@ export default function LoggedInUserOptionsDropdown() {
         <ul>
           <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer hover:font-bold">
             Make a recipe
+          </li>
+          <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer hover:font-bold">
+            Inventory
           </li>
           <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer hover:font-bold">
             Account info
