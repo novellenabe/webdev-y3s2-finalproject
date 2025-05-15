@@ -2,8 +2,6 @@ import { NextResponse } from "next/server";
 import pool from "@/lib/db";
 import { v4 as uuidv4 } from "uuid";
 import { cookies } from "next/headers";
-import { getWaitUntilPromiseFromEvent } from "next/dist/server/web/spec-extension/fetch-event";
-import { createServerSearchParamsForServerPage } from "next/dist/server/request/search-params";
 
 export async function validateFields(data) {
   if (!data.fname || !data.lname || !data.email || !data.password) {
@@ -18,7 +16,7 @@ export async function validateFields(data) {
 export async function validateEmail(data) {
   try {
     const [existingUser] = await pool.execute(
-      "SELECT email FROM user WHERE email = ?",
+      "SELECT email FROM users WHERE email = ?",
       [data.email]
     );
 
@@ -41,7 +39,7 @@ export async function validateEmail(data) {
 export async function registerAccount(data) {
   try {
     const [accounts] = await pool.execute(
-      "INSERT INTO user (firstname, lastname, email, password) VALUES (?, ?, ?, ?)",
+      "INSERT INTO users (firstname, lastname, email, password) VALUES (?, ?, ?, ?)",
       [data.fname, data.lname, data.email, data.password] //  Use placeholders and an array to prevent SQL injection
     );
     return NextResponse.json(
@@ -62,7 +60,7 @@ export async function validatePassword(password) {}
 export async function login(data) {
   try {
     const [accounts] = await pool.execute(
-      "SELECT user_id, email, password FROM user WHERE email = ? AND password = ?",
+      "SELECT user_id, email, password FROM users WHERE email = ? AND password = ?",
       [data.email, data.password]
     );
     if (accounts.length === 1) {
@@ -103,7 +101,7 @@ export async function startSession(data) {
 
       /* GET CURRENT USER ID FROM EMAIL */
       const [user_id] = await pool.execute(
-        "SELECT user_id FROM user WHERE email = ?",
+        "SELECT user_id FROM users WHERE email = ?",
         [data.email]
       );
       //console.log(user_id[0].user_id);
@@ -244,7 +242,7 @@ function displayMessages(cc, msg) {
 // TODO: Make these 2 functions into 1
 async function getUserId(email) {
   const [result] = await pool.execute(
-    "SELECT user_id FROM user WHERE email = ?",
+    "SELECT user_id FROM users WHERE email = ?",
     [email]
   );
   return result.length === 0 ? null : result[0].user_id;
@@ -259,7 +257,7 @@ export async function getActiveEmail(sessionId) {
 
   const user_id = session[0].user_id;
   const [email] = await pool.execute(
-    "SELECT email FROM user WHERE user_id = ?",
+    "SELECT email FROM users WHERE user_id = ?",
     [user_id]
   );
 

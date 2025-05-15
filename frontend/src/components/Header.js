@@ -6,6 +6,7 @@ import { useRouter, useSelectedLayoutSegment } from "next/navigation";
 import { usePopup } from "./ForwardScreenProvider";
 import { useUserAuth } from "./UserAuthProvider";
 import LoggedInUserOptionsDropdown from "./HeaderDropdown/LoggedInUserOptionsDropdown";
+import Image from "next/image";
 
 export default function Header() {
   const {
@@ -121,7 +122,7 @@ export default function Header() {
               className="flex justify-center items-center"
             >
               <img
-                src="default-pfp.jpeg"
+                src="/default-pfp.jpeg"
                 alt="default-pfp"
                 className="block rounded-full h-12"
               />
@@ -143,7 +144,7 @@ export default function Header() {
                 className="flex justify-center items-center"
               >
                 <img
-                  src="default-pfp.jpeg"
+                  src="/default-pfp.jpeg"
                   alt="default-pfp"
                   className="block rounded-full h-12"
                 />

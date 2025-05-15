@@ -6,8 +6,12 @@ export async function POST(request) {
   try {
     const data = await request.json();
     const loginResponse = await login(data);
+
     if (loginResponse.status !== 200) return loginResponse;
 
+    //const clientId = crypto.randomUUID();
+    //sessionStorage.setItem("clientId", clientId);
+    //console.log(clientId);
     //return NextResponse.json({ status: 200 });
     return startSession(data);
   } catch (error) {

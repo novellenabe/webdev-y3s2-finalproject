@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(request) {
   try {
-    const [rows] = await pool.execute("SELECT * FROM users");
+    const [rows] = await pool.execute("SELECT * FROM culinarycompass");
     return NextResponse.json(rows);
   } catch (error) {
     console.error("Database error:", error);

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { usePopup } from "../ForwardScreenProvider";
 import { useUserAuth } from "../UserAuthProvider";
+import Link from "next/link";
 
 export default function LoggedInUserOptionsDropdown() {
   const { popupRef } = usePopup();
@@ -21,7 +22,7 @@ export default function LoggedInUserOptionsDropdown() {
             Inventory
           </li>
           <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer hover:font-bold">
-            Account info
+            <a href="/profile">Account info</a>
           </li>
           <li
             className="px-4 py-2 hover:bg-gray-100 cursor-pointer hover:font-bold"
@@ -34,3 +35,9 @@ export default function LoggedInUserOptionsDropdown() {
     </div>
   );
 }
+
+/*
+<Link href="/posts/[id]" as={`/posts/${id}`}>
+      <a>Read Post {id}</a>
+    </Link>
+*/
