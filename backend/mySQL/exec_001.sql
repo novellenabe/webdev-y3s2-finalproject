@@ -75,7 +75,7 @@ WHERE user_id = 6;
 #SELECT * FROM user
 
 USE culinarycompass;
-SELECT * FROM users;
+SELECT * FROM recipes;
 #SELECT * FROM sessions;
 #ALTER TABLE users
 #ADD COLUMN is_logged_in BOOLEAN NOT NULL DEFAULT FALSE;

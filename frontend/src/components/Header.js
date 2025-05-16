@@ -133,7 +133,7 @@ export default function Header() {
           {!isLoggedIn ? (
             <button
               onClick={user_SIGNIN_DESKTOP}
-              className=" bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition delay-50 rounded-4xl"
+              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition delay-50 rounded-4xl"
             >
               Sign in
             </button>
